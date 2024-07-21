@@ -1,6 +1,6 @@
 # UML Diagrams
 ## TLDR (easy peasy) -
-![alt text](images\image-10.png)
+![alt text](images/image-10.png)
 
 This class diagram represents a simplified model of an order processing system. Here's a breakdown of its components:
 
@@ -80,9 +80,9 @@ ____
 - UML class diagram provides a static view of an object oriented system, showcasing its classes, attributes, methods, and the relationships among objects.
 
 >This is the UML Diagram of Cat Class
-![alt text](images\image.png)
+![alt text](images/image.png)
 
-![alt text](images\image-1.png)
+![alt text](images/image-1.png)
 
 Say you have a cat named Oscar. Oscar is an object, an instance
 of the Cat class. Every cat has a lot of standard attributes:
@@ -113,7 +113,7 @@ behaviors that differ. Thus, the `Cat` class would have the
 `meow` method, and the `Dog` class the `bark` method.
 
 >### UML diagram of a class hierarchy. All classes in this diagram are part of the `Animal` class hierarchy.
-![alt text](images\image-2.png)
+![alt text](images/image-2.png)
 
 ----
 
@@ -121,11 +121,11 @@ Imagine that you have a **FlyingTransport** interface with a method **fly(origin
 When designing an air transportation simulator, you could restrict the **Airport** class to work only with objects that implement the **FlyingTransport** interface. After this, you can be sure that any object passed to an airport object, whether it’s an `Airplane` , a `Helicopter` or a freaking `DomesticatedGryphon` would be able to arrive or depart from this type of airport.
 
 >### UML diagram of several classes implementing an interface.
-![alt text](images\image-3.png)
+![alt text](images/image-3.png)
 
 ----
 >### UML diagram of extending a single class versus implementing multiple interfaces at the same time.
-![alt text](images\image-4.png)
+![alt text](images/image-4.png)
 
 Here, `Animal` is a superclass, and `Cat` is a subclass and `Cat` class is implementing two interfaces: **FourLegged** and **OxygenBreathing** .
 
@@ -141,13 +141,13 @@ away. This lets us omit any default implementation of the
 method in the superclass, but force all subclasses to come up
 with their own.
 
-![alt text](images\image-5.png)
+![alt text](images/image-5.png)
 
 ____
 ## Relations Between Objects
 
 >### UML Association. Professor communicates with students.
-![alt text](images\image-6.png)
+![alt text](images/image-6.png)
 
 Association is a type of relationship in which one object uses or
 interacts with another. **In UML diagrams the association relationship
@@ -159,7 +159,7 @@ For example, a `Professor` object might have a field that is an array of `Studen
 
 ____
 >### UML Dependency. Professor depends on salary.
-![alt text](images\image-7.png)
+![alt text](images/image-7.png)
 
 - Dependency is a weaker variant of association that usually implies that there’s no permanent link between objects.
 
@@ -172,11 +172,11 @@ Here’s how you can spot a dependency between classes: a dependency exists betw
 ____
 
 >### UML Composition. University consists of departments.
-![alt text](images\image-8.png)
+![alt text](images/image-8.png)
 
 Composition is a “whole-part” relationship between two objects, one of which is composed of one or more instances of the other.
 ____
 >### UML Aggregation. Department contains professors
-![alt text](images\image-9.png)
+![alt text](images/image-9.png)
 - Aggregation is a less strict variant of composition, where one object merely contains a reference to another. 
 - The container doesn’t control the life cycle of the component. The component can exist without the container and can be linked to several containers at the same time.
