@@ -2,6 +2,8 @@ package designpatterns.java.factory;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Shubham");
+        ShapeFactory shapeFactory = new ShapeFactory();
+        Shape circleShape = shapeFactory.getShape("Circle");
+        circleShape.draw();
     }    
 }
