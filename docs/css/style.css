@@ -1,0 +1,43 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+.container { /* Optional: A class to wrap main content */
+    width: 80%;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1, h2, h3 {
+    color: #333; /* Darker headings */
+}
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin-bottom: 10px;
+}
+/* Pygments syntax highlighting classes often start with .syntax */
+/* This class will be on the <pre> tag if using HtmlFormatter with wrapcode=True and noclasses=False (default) */
+.syntax {
+    background: #f0f0f0; /* Light gray background for code blocks */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow-x: auto; /* For horizontal scrolling of long code lines */
+}
+/* You might need to include a full Pygments CSS theme later for more detailed highlighting */
+/* For example, from: `pygmentize -S friendly -f html -a .syntax > pygments_style.css` and then concatenate */

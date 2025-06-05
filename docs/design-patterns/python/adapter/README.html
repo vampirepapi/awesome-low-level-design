@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>README</title><link rel="stylesheet" href="../../../css/style.css"></head><body><div class="container"><html><body><h1>Adapter Design Pattern in Python</h1>
+<h2>Problem Statement</h2>
+<p>The Adapter pattern allows incompatible interfaces to work together. It acts as a bridge between two incompatible interfaces by converting the interface of one class into another interface that clients expect.</p>
+<hr/>
+<h2>Core Components</h2>
+<h3>1. Target Interface (PaymentProcessor)</h3>
+<div class="codehilite">
+<pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">PaymentProcessor</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_payment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">currency</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+</code></pre>
+</div>
+<h3>2. Adaptee (LegacyGateway)</h3>
+<div class="codehilite">
+<pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">LegacyGateway</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_payment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">currency</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Legacy payment processing logic</span>
+        <span class="k">pass</span>
+</code></pre>
+</div>
+<h3>3. Adapter (LegacyGatewayAdapter)</h3>
+<div class="codehilite">
+<pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">LegacyGatewayAdapter</span><span class="p">(</span><span class="n">PaymentProcessor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legacy_gateway</span><span class="p">:</span> <span class="n">LegacyGateway</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legacy_gateway</span> <span class="o">=</span> <span class="n">legacy_gateway</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_payment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">currency</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legacy_gateway</span><span class="o">.</span><span class="n">make_payment</span><span class="p">(</span><span class="n">currency</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+</code></pre>
+</div>
+<h3>4. Client (CheckoutService)</h3>
+<div class="codehilite">
+<pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CheckoutService</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payment_processor</span><span class="p">:</span> <span class="n">PaymentProcessor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">payment_processor</span> <span class="o">=</span> <span class="n">payment_processor</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">checkout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">currency</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">payment_processor</span><span class="o">.</span><span class="n">process_payment</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span> <span class="n">currency</span><span class="p">)</span>
+</code></pre>
+</div>
+<hr/>
+<h2>Example Usage</h2>
+<div class="codehilite">
+<pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Using the in-house payment processor</span>
+    <span class="n">in_house_processor</span> <span class="o">=</span> <span class="n">InHousePaymentProcessor</span><span class="p">()</span>
+    <span class="n">checkout_service</span> <span class="o">=</span> <span class="n">CheckoutService</span><span class="p">(</span><span class="n">in_house_processor</span><span class="p">)</span>
+    <span class="n">checkout_service</span><span class="o">.</span><span class="n">checkout</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s2">"USD"</span><span class="p">)</span>
+
+    <span class="c1"># Using the legacy payment gateway through adapter</span>
+    <span class="n">legacy_processor</span> <span class="o">=</span> <span class="n">LegacyGatewayAdapter</span><span class="p">(</span><span class="n">LegacyGateway</span><span class="p">())</span>
+    <span class="n">checkout_service</span> <span class="o">=</span> <span class="n">CheckoutService</span><span class="p">(</span><span class="n">legacy_processor</span><span class="p">)</span>
+    <span class="n">checkout_service</span><span class="o">.</span><span class="n">checkout</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s2">"USD"</span><span class="p">)</span>
+</code></pre>
+</div>
+<hr/>
+<h2>Benefits</h2>
+<ol>
+<li><p><strong>Single Responsibility Principle:</strong></p>
+<ul>
+<li>Separates the interface conversion logic from the business logic</li>
+<li>Each class has a single responsibility</li>
+</ul></li>
+<li><p><strong>Open/Closed Principle:</strong></p>
+<ul>
+<li>New adapters can be added without modifying existing code</li>
+<li>System remains open for extension but closed for modification</li>
+</ul></li>
+<li><p><strong>Reusability:</strong></p>
+<ul>
+<li>Existing classes can be reused with new interfaces</li>
+<li>Reduces code duplication</li>
+</ul></li>
+<li><p><strong>Flexibility:</strong></p>
+<ul>
+<li>Multiple adapters can be created for different purposes</li>
+<li>Easy to switch between different implementations</li>
+</ul></li>
+</ol>
+<hr/>
+<h2>When to Use</h2>
+<ol>
+<li><p><strong>When integrating incompatible interfaces:</strong></p>
+<ul>
+<li>Working with legacy systems</li>
+<li>Using third-party libraries</li>
+<li>Migrating between different versions</li>
+</ul></li>
+<li><p><strong>When creating a reusable class:</strong></p>
+<ul>
+<li>The class needs to work with unrelated classes</li>
+<li>The class needs to work with classes that don't have compatible interfaces</li>
+</ul></li>
+<li><p><strong>When implementing multiple interfaces:</strong></p>
+<ul>
+<li>A class needs to implement multiple interfaces</li>
+<li>Different clients need different views of the same class</li>
+</ul></li>
+</ol>
+<hr/>
+<h2>Best Practices</h2>
+<ol>
+<li><p><strong>Keep it Simple:</strong></p>
+<ul>
+<li>Adapters should be simple and focused</li>
+<li>Avoid adding unnecessary functionality</li>
+</ul></li>
+<li><p><strong>Documentation:</strong></p>
+<ul>
+<li>Clearly document the purpose of the adapter</li>
+<li>Explain the conversion logic</li>
+</ul></li>
+<li><p><strong>Testing:</strong></p>
+<ul>
+<li>Test the adapter thoroughly</li>
+<li>Ensure it works with both the target and adaptee</li>
+</ul></li>
+<li><p><strong>Error Handling:</strong></p>
+<ul>
+<li>Handle conversion errors gracefully</li>
+<li>Provide meaningful error messages</li>
+</ul></li>
+</ol>
+<hr/>
+<h2>Common Pitfalls</h2>
+<ol>
+<li><p><strong>Over-engineering:</strong></p>
+<ul>
+<li>Creating adapters when not needed</li>
+<li>Adding unnecessary complexity</li>
+</ul></li>
+<li><p><strong>Tight Coupling:</strong></p>
+<ul>
+<li>Creating dependencies between adapters</li>
+<li>Making the system less flexible</li>
+</ul></li>
+<li><p><strong>Performance Issues:</strong></p>
+<ul>
+<li>Adding too many layers of adaptation</li>
+<li>Impacting system performance</li>
+</ul></li>
+</ol>
+<hr/>
+</body></html></div></body></html>
